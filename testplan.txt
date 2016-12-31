@@ -1,0 +1,214 @@
+TestCases
+---------
+
+Input Tests
+
+	Test file is empty
+	------------------	
+
+	./compressR_LOLS test.txt 3
+	Empty test file
+
+	./compressT_LOLS test.txt 3
+	Empty test file
+
+	No parts argument given
+	-----------------------
+
+	./compressR_LOLS test.txt 
+	Incorrect number of arguments.
+
+	./compressT_LOLS test.txt 
+	Incorrect number of arguments.
+
+
+	Too many arguments given
+	------------------------
+
+	./compressR_LOLS test.txt 4 28
+	Incorrect number of arguments.
+
+	./compressT_LOLS test.txt 4 28
+	Incorrect number of arguments.
+
+Compression tests
+
+	All single characters
+	---------------------
+
+	test.txt contains: abcdefghijklmnopqrstuvwxyz
+
+	./compressR_LOLS test.txt 1
+
+	test_txt_LOLS: abcdefghijklmnopqrstuvwxyz
+
+	./compressT_LOLS test.txt 1
+
+	test_txt_LOLS: abcdefghijklmnopqrstuvwxyz
+
+
+	All double characters
+	---------------------
+	
+	test.txt contains: aabbccddeeffjjhhii
+
+	./compressR_LOLS test.txt 1
+
+	test_txt_LOLS: aabbccddeeffgghhii
+
+	./compressT_LOLS test.txt 1
+
+	test_txt_LOLS: aabbccddeeffgghhii
+
+
+	All more than two characters
+	----------------------------
+	
+	test.txt contains: aaaaaaahhhhhhhhhhtttffffffffffffuuuuuuuuuwwwww
+
+	./compressR_LOLS test.txt 1
+
+	test_txt_LOLS: 7a10h3t12f9u5w
+
+	./compressT_LOLS test.txt 1
+
+	test_txt_LOLS: 7a10h3t12f9u5w
+	
+	
+	Mix of everything
+	-----------------
+	
+	test.txt contains: rrrrrthhwwwwuuigggggjjjjgggv
+	
+	./compressR_LOLS test.txt 1
+	
+	test_txt_LOLS: 5rthh4wuui5g4j3gv
+
+	./compressT_LOLS test.txt 1
+	
+	test_txt_LOLS: 5rthh4wuui5g4j3gv
+	
+
+Multithread/Multiprocess tests
+
+	
+	Rounding up
+	-----------
+	
+	test.txt contains: aaaaaaacccccc
+	
+	./compressR_LOLS test.txt 2
+	
+	test_txt_LOLS: 7a
+	
+	test_txt_LOLS1: 6c
+	
+	./compressT_LOLS test.txt 2
+	
+	test_txt_LOLS: 7a
+	
+	test_txt_LOLS1: 6c
+	
+	
+	Even split of same character
+	------------------------------
+	
+	test.txt contains: xxx
+	
+	./compressR_LOLS test.txt 3
+	
+	test_txt_LOLS: x
+	
+	test_txt_LOLS1: x
+	
+	test_txt_LOLS2: x
+	
+	./compressT_LOLS test.txt 3
+	
+	test_txt_LOLS: x
+	
+	test_txt_LOLS1: x
+	
+	test_txt_LOLS2: x
+	
+	
+	Mish Mash
+	---------
+	
+	test.txt contains: bbbhhtttttccchvvvvvvhhhhhssssjj
+	
+	./compressR_LOLS test.txt 4
+	
+	test_txt_LOLS: 3bhh3t
+	
+	test_txt_LOLS1: tt3chvv
+	
+	test_txt_LOLS2: 4v4h
+	
+	test_txt_LOLS3: h4sjj
+	
+	./compressT_LOLS test.txt 4
+	
+	test_txt_LOLS: 3bhh3t
+	
+	test_txt_LOLS1: tt3chvv
+	
+	test_txt_LOLS2: 4v4h
+	
+	test_txt_LOLS3: h4sjj
+	
+	
+Non-Alphabetic Characters Tests
+
+
+	No alphabetic characters
+	------------------------
+	
+	test.txt contains: 12$$@###^^&*&^00000 555
+	
+	.compressR_LOLS test.txt 1
+	
+	test_txt_LOLS: "empty"
+	
+	.compressT_LOLS test.txt 1
+	
+	test_txt_LOLS: "empty"
+	
+	
+	Mix of alphabetic an non-alpabetic
+	----------------------------------
+	
+	test.txt contains: aaannnnnnntttt7ccc88  wwwwwww abvnvvvv__rr
+	
+	./compressR_LOLS test.txt 3
+	
+	test_txt_LOLS: 3a7n4t
+	
+	test_txt_LOLS1: 3c6w
+	
+	test_txt_LOLS2: wabvn4vrr
+	
+	./compressT_LOLS test.txt 3
+	
+	test_txt_LOLS: 3a7n4t
+	
+	test_txt_LOLS1: 3c6w
+	
+	test_txt_LOLS2: wabvn4vrr
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+

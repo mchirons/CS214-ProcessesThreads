@@ -1,0 +1,61 @@
+We created a testing program that ran our compressR_LOLS program 50 times and averaged
+the execution times and did the same for compressR_LOLS. We ran these tests 
+with varying number of parts to divide the workload to see what the sweet spot was for
+efficiency. The file we compressed is 100kB of the character 'a'. The average time
+for the tests is given in microseconds. 
+
+Parts		Process		Thread
+1		183020		182175
+2		50936		49136
+3		25282		23947
+4		25218		22290
+5		19665		19167	
+6 		14463		13835
+7		13220		12238
+8		12416		11669
+9		12481		11631	
+10		12590		11969
+11		13494		12311
+12		14126		12798
+13		15003		13630
+14		15481		14092
+15		16056		14477
+20		19482		16736
+25		23044		20396
+30		26295		23052
+50		40113		37679
+100		75908		69604
+200		156505		143245
+
+Analysis
+--------
+
+As you can see, compressing the file using only one process or one thread was
+much slower than dividing the file among multiple worker process or worker threads.
+The efficiency of the compression increases as you increase process and threads 
+until the total workers hits about 8 or 9. From then on increasing workers does not
+seem to help speed, in fact the compression time begins to slow down. This is most 
+likely due to the increasing overhead of creating  more processes and threads and it
+starts to negate the benefite of dividing the file for concurrent compression. Increased
+file i/o may also slow things down as more processes and threads are accessing the file
+and saving their compressed output. 
+
+Comparing processes and threads reveals that threads consistently perform the compression
+a bit faster than processes. The gap between compression speed only increases as the file
+is divided into more parts. We believe that the spawning of a child process is more 
+expensive time wise than creating a new thread because every time a process is spawned it
+must copy the entire address space of the parent process into a new memory location 
+whereas threads share a lot of  memory with the parent process and each other so less
+time is needed to move memory around before a thread worker can start compressing its
+designated part. As the parts of the file is increased the extra overhead of the processes
+is revealed by the increasing time disparity compared to threads. 
+
+In addition to the test above, we ran the same test but with a smaller file. In general the
+results were the same except the number of parts that was most efficient was less and also
+the disparity between threads and processed was smaller. We think that for smaller files
+the overhead of both multiple processes and multiple threads begins to reduce the effectiveness
+of concurrent compression but threads still win out as the faster method in this case. We assume
+that for very large files, the most efficient number of parts to divide the file will increase
+and that threads will be an even better choice for this task. 
+
+
